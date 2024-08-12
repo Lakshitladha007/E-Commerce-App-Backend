@@ -13,7 +13,7 @@ class UserRepository{
 
     async destroy(userId){
         try {
-            const response = await User.deleteOne(userId);
+            const response = await User.deleteOne({_id:userId});
             return response;
         } catch (error) {
             console.log("Something went wrong");
@@ -23,7 +23,7 @@ class UserRepository{
 
     async update(userId, update){  // userId is to identify the unique user & update is an object that consists of fields that needs to be updated
         try {
-            const response = await User.findOneAndUpdate({_id:userId}, update,{new:true});
+            const response = await User.findOneAndUpdate( { _id : userId }, update, { new : true } );
             return response;
         } catch (error) {
             console.log("Something went wrong");
@@ -37,6 +37,16 @@ class UserRepository{
             return response;
         } catch (error) {
             console.log("Something went wrong");
+            throw error;
+        }
+    }
+
+    async findAll(){
+        try {
+            const users= await User.find();
+            return users;
+        } catch (error) {
+            console.log("somethiong went wrong");
             throw error;
         }
     }
