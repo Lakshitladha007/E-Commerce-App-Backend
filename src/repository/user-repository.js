@@ -6,7 +6,7 @@ class UserRepository{
             const user=await User.create(object);
             return user;
         } catch (error) {
-            console.log("Something went wrong");
+            console.log("Something went wrong, error is:", error);
             throw error;
         }
     }
@@ -16,7 +16,7 @@ class UserRepository{
             const response = await User.deleteOne({_id:userId});
             return response;
         } catch (error) {
-            console.log("Something went wrong");
+            console.log("Something went wrong, error is:", error);
             throw error; 
         }
     }
@@ -31,7 +31,7 @@ class UserRepository{
         }
     }
 
-    async find(userId){  // userId is to identify the unique user & update is an object that consists of fields that needs to be updated
+    async findById(userId){  // userId is to identify the unique user & update is an object that consists of fields that needs to be updated
         try {
             const response = await User.findById(userId);
             return response;
@@ -47,6 +47,16 @@ class UserRepository{
             return users;
         } catch (error) {
             console.log("somethiong went wrong");
+            throw error;
+        }
+    }
+
+    async findByEmail(email){
+        try {
+            const user= await User.findOne({email: email});
+            return user;
+        } catch (error) {
+            console.log("something went wrong");
             throw error;
         }
     }
