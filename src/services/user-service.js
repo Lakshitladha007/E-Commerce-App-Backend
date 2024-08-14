@@ -10,7 +10,6 @@ class UserService {
 
   async create(data) {
     try {
-      const res= await this.findByEmail(data.email);
       const user = await this.userRepository.create(data);
       const response={  // we don't want to send hashed password to frontend
         name: user.name,
@@ -86,6 +85,11 @@ class UserService {
 
   async signIn(data) {
     try {
+      const user= await this.findByEmail(data.email);
+      const response= await this.comparePassword(data.password, user.password);
+      if(!response){
+        return false;
+      }
       const token = jwt.sign({
         email: data.email,
         password: data.password

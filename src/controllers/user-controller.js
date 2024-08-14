@@ -112,11 +112,19 @@ const signIn = async (req, res) => {
             return res.status(400).json({
                 success: false,
                 data: {},
-                err: "User doesn't exist",
+                err: "User with this email doesn't exist",
                 message: "Can't SIGNIN"
             });
         }
         const token = await userService.signIn(req.body);
+        if (!token) {
+            return res.status(400).json({
+                success: false,
+                data: {},
+                err: "Invalid password",
+                message: "Can't SIGNIN"
+            });
+        }
         return res.status(200).json({
             success: true,
             data: token,
@@ -124,7 +132,12 @@ const signIn = async (req, res) => {
 
         })
     } catch (error) {
-
+        return res.status(500).json({
+            data: {},
+            success: false,
+            message: "Cannot signin a user",
+            err: error
+        })
     }
 }
 
