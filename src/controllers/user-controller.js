@@ -1,5 +1,6 @@
 const UserService = require("../services/user-service");
 
+
 const userService = new UserService();
 
 const destroy = async (req, res) => {
@@ -112,8 +113,8 @@ const signIn = async (req, res) => {
             return res.status(400).json({
                 success: false,
                 data: {},
-                err: "User with this email doesn't exist",
-                message: "Can't SIGNIN"
+                err: "Invalid User",
+                message: "User with this email doesn't exist"
             });
         }
         const token = await userService.signIn(req.body);
@@ -121,8 +122,8 @@ const signIn = async (req, res) => {
             return res.status(400).json({
                 success: false,
                 data: {},
-                err: "Invalid password",
-                message: "Can't SIGNIN"
+                err: "Wrong password",
+                message: "The password entered is not a match"
             });
         }
         return res.status(200).json({
