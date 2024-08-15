@@ -11,7 +11,7 @@ class UserService {
   async create(data) {
     try {
       const user = await this.userRepository.create(data);
-      const response={  // we don't want to send hashed password to frontend
+      const response = {  // we don't want to send hashed password to frontend
         name: user.name,
         email: user.email,
         phone: user.phone,
@@ -85,21 +85,30 @@ class UserService {
 
   async signIn(data) {
     try {
-      const user= await this.findByEmail(data.email);
-      const response= await this.comparePassword(data.password, user.password);
-      if(!response){
+      const user = await this.findByEmail(data.email);
+      console.log(user);
+      const response = await this.comparePassword(data.password, user.password);
+      if (!response) {
         return false;
       }
-      const token = jwt.sign({
-        email: data.email,
-        password: data.password
-      }, 
-      SECRET_KEY,{
-          expiresIn: '1h'
+      const token = jwt.sign(user,
+        SECRET_KEY, {
+        expiresIn: '1h'
       });
       return token;
     } catch (error) {
-      console.log("Something went wrong");
+      console.log("Something went wrong", error);
+      throw error;
+    }
+  }
+
+  async verifyToken(token) {
+    try {
+      const decoded=jwt.verify(token, SECRET_KEY)
+      return decoded;
+    } catch (error) {
+      console.log(error);
+      throw error;
     }
   }
 }

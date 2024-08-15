@@ -53,7 +53,7 @@ class UserRepository{
 
     async findByEmail(email){
         try {
-            const user= await User.findOne({email: email});
+            const user= await User.findOne({email: email}).lean();
             return user;
         } catch (error) {
             console.log("something went wrong");
