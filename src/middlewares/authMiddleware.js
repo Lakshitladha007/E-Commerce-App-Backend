@@ -33,7 +33,6 @@ const AuthMiddleware = async (req, res, next) => {
         }
         delete response.iat;
         delete response.exp;
-        console.log(response);
         req.user=response;
         next();
 
