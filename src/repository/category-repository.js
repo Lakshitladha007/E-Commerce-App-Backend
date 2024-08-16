@@ -21,7 +21,7 @@ class CategoryRepository{
         }
     }
 
-    async update( categoryId, update){  // categoryId is to identify the unique user & update is an object that consists of fields that needs to be updated
+    async update( categoryId, update){  // categoryId is to identify the unique category & update is an object that consists of fields that needs to be updated
         try {
             const data= await Category.findOneAndUpdate({ _id : categoryId }, update, { new : true });
             return data;
@@ -31,7 +31,7 @@ class CategoryRepository{
         }
     }
 
-    async findById(categoryId){  // categoryId is to identify the unique user & update is an object that consists of fields that needs to be updated
+    async findById(categoryId){  // categoryId is to identify the unique category & update is an object that consists of fields that needs to be updated
         try {
             const category= await Category.findById(categoryId);
             return category;
