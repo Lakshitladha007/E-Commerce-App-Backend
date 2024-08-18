@@ -20,8 +20,7 @@ class UserService {
       }
       return response;
     } catch (error) {
-      console.log("Something went wrong, inside service layer");
-      console.log(" error is:", error);
+      console.log("Something went wrong, inside service layer", error);
       throw error;
     }
   }
@@ -34,7 +33,7 @@ class UserService {
       }
       return true;
     } catch (error) {
-      console.log("Something went wrong");
+      console.log("Something went wrong, inside service layer", error);
       throw error;
     }
   }
@@ -44,7 +43,7 @@ class UserService {
       const response = await this.userRepository.update(userId, update);
       return response;
     } catch (error) {
-      console.log("Something went wrong");
+      console.log("Something went wrong, inside service layer", error);
       throw error;
     }
   }
@@ -54,7 +53,7 @@ class UserService {
       const user = await this.userRepository.findByID(userId);
       return user;
     } catch (error) {
-      console.log("Something went wrong");
+      console.log("Something went wrong, inside service layer", error);
       throw error;
     }
   }
@@ -64,7 +63,7 @@ class UserService {
       const users = await this.userRepository.findAll();
       return users;
     } catch (error) {
-      console.log("Something went wrong");
+      console.log("Something went wrong,inside service layer", error);
       throw error;
     }
   }
@@ -74,7 +73,7 @@ class UserService {
       const user = await this.userRepository.findByEmail(email);
       return user;
     } catch (error) {
-      console.log("Something went wrong");
+      console.log("Something went wrong, inside service layer", error);
       throw error;
     }
   }
@@ -86,7 +85,6 @@ class UserService {
   async signIn(data) {
     try {
       const user = await this.findByEmail(data.email);
-      console.log(user);
       const response = await this.comparePassword(data.password, user.password);
       if (!response) {
         return false;
@@ -97,7 +95,7 @@ class UserService {
       });
       return token;
     } catch (error) {
-      console.log("Something went wrong", error);
+      console.log("Something went wrong, inside service layer", error);
       throw error;
     }
   }
@@ -107,7 +105,7 @@ class UserService {
       const decoded=jwt.verify(token, SECRET_KEY)
       return decoded;
     } catch (error) {
-      console.log(error);
+      console.log("Something went wrong, inside service layer", error);
       throw error;
     }
   }

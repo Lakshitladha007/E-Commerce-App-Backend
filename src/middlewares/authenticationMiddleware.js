@@ -1,7 +1,7 @@
 const  UserService = require('../services/user-service');
 
 const userService= new UserService();
-const AuthMiddleware = async (req, res, next) => {
+const AuthenticationMiddleware = async (req, res, next) => {
     try {
         const authorization = req.headers.authorization.trim();
         if(!authorization.startsWith("Bearer ")){
@@ -47,4 +47,4 @@ const AuthMiddleware = async (req, res, next) => {
     }
 }
 
-module.exports=AuthMiddleware;
+module.exports= AuthenticationMiddleware;

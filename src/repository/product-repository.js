@@ -26,7 +26,7 @@ class ProductRepository{
             const product= await Product.findOneAndUpdate({ _id : productId }, update, { new : true });
             return product;
         }catch(error) {
-            console.log("Something went wrong");
+            console.log("Something went wrong, error is:", error);
             throw error;
         }
     }
@@ -36,7 +36,7 @@ class ProductRepository{
             const product= await Product.findById(productId);
             return product;
         } catch (error) {
-            console.log("Something went wrong", error);
+            console.log("Something went wrong, error is:", error);
             throw error;
         }
     }
@@ -46,7 +46,7 @@ class ProductRepository{
             const products= await Product.find();
             return products;
         } catch (error) {
-            console.log("Something went wrong", error);
+            console.log("Something went wrong, error is:", error);
             throw error;
         }
     }
